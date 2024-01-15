@@ -1,0 +1,146 @@
+
+
+secrets: {}
+persistentVolumes: {}
+scratchPaths: {}
+emptyDirs: {}
+initContainers: {}
+
+
+deploymentStrategy:
+  enabled: false
+  type: RollingUpdate
+  rollingUpdate: {}
+
+canary:
+  enabled: false
+  replicaCount: 1
+  containerImage:
+    repository: 
+    tag: 
+    pullPolicy: IfNotPresent
+
+serviceMonitor:
+  enabled: false
+
+serviceAccount:
+  name: ""
+  create: false
+  annotations: {}
+  labels: {}
+
+horizontalPodAutoscaler:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+
+
+
+applicationName: "SAMPLE"
+imagePullSecrets: []
+
+containerImage:
+  repository: test
+  tag: v11
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+containerPorts: 
+  http:
+    port: 8331
+    protocol: TCP
+  https:
+    port: 8443
+    protocol: TCP
+  management:
+    port: 9990
+    protocol: TCP
+
+containerCommand: null
+
+
+podSecurityContext:
+  fsGroup: 1000770000
+  runAsUser: 1000770000
+  # runAsGroup: 1000770000
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+
+
+securityContext: 
+  privileged: false
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+
+
+containerResources:
+  requests:
+    memory: "512Mi"
+    cpu: "100m"
+  # limits:
+  #   memory: "1024Mi"
+  #   cpu: "200m"  
+
+    
+
+
+###############################################
+# CONFIGMAP
+###############################################
+
+configMaps: {}
+
+###############################################
+# SERVICE
+###############################################
+
+service:
+  enabled: true
+  ports:
+    http:
+      port: 80
+      targetPort: 8331
+      protocol: TCP
+    https:
+      port: 443
+      targetPort: 8443
+      protocol: TCP
+    management:
+      port: 9990
+      targetPort: 9990
+      protocol: TCP
+
+###############################################
+# INGRESS
+###############################################
+
+ingress:
+  enabled: true
+  ingressClassName: openshift-default
+  hosts:
+    - test.v4.cibc.com
+  path: "/"
+  pathType: Prefix
+  servicePort: 80
+  additionalPaths:
+  - path: "/https"
+    pathType: Prefix
+    servicePort: 443
+  - path: "/mgmt"
+    pathType: Prefix
+    servicePort: 9990
+
+
+lifecycleHooks:
+  enabled: true
+
+
+customResources:
+  enabled: false
+  resources:
+
+

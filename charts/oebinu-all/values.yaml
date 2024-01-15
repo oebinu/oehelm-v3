@@ -1,0 +1,19 @@
+
+applicationName: SAMPLE
+# namespace: cibc-asg-fxcenter-sit
+
+###########################################
+#### Package No.1 : oebinu-web
+###########################################
+oebinu-web:
+  enabled: true
+
+###########################################
+#### Package No.2 : oebinu-db
+###########################################
+oebinu-db:
+  enabled: true
+
+customResources:
+  enabled: false
+  resources: 

@@ -1,0 +1,19 @@
+
+apiVersion: v2
+appVersion: v1.0.0
+name: oebinu-service
+type: application
+version: 1.0.0
+sources:
+  - https://github.com/oebinu/oehelm-v1/tree/main/charts/oebinu-all
+
+dependencies:
+- condition: oebinu-web.enabled
+  name: oebinu-web
+  repository: https://oebinu.github.io/oehelm-v1/
+  version: 0.3.0
+  
+- condition: oebinu-db.enabled
+  name: oebinu-db
+  repository: https://oebinu.github.io/oehelm-v1/
+  version: 0.3.0
